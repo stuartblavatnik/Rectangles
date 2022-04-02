@@ -25,7 +25,16 @@ public final class Rectangle {
         return width;
     }
 
-    public Rectangle(double top, double left, double height, double width) {
+    public Rectangle(double top, double left, double height, double width) throws RectanglesLibraryException {
+
+        if (height < 0.0d) {
+            throw new RectanglesLibraryException("height must be greater than or equal to 0.0");
+        }
+
+        if (width < 0.0d) {
+            throw new RectanglesLibraryException("width must be greater than or equal to 0.0");
+        }
+
         this.top = top;
         this.left = left;
         this.height = height;
@@ -45,33 +54,39 @@ public final class Rectangle {
 
     public boolean intersects(Rectangle otherRectangle) {
 
-        boolean intersects;
+        double otherLeft = otherRectangle.getLeft();
+        double otherTop = otherRectangle.getTop();
+        double otherWidth = otherRectangle.getWidth();
+        double otherHeight = otherRectangle.getHeight();
+        double left = getLeft();
+        double top = getTop();
 
-        double x = otherRectangle.getLeft();
-        double y = otherRectangle.getTop();
-        double w = otherRectangle.getWidth();
-        double h = otherRectangle.getHeight();
-        double x0 = getLeft();
-        double y0 = getTop();
-
-        if(isEmpty() || w <= 0 || h <= 0)
+        if (isEmpty() && otherRectangle.isEmpty()) {
+            return true;
+        }
+        else if (isEmpty() || otherRectangle.isEmpty()) {
             return false;
+        }
 
-                intersects = x + w > x0 &&
-                        y + h > y0 &&
-                        x < x0 + getWidth() &&
-                        y < y0 + getHeight();
-
-
-
-        return intersects;
+        return otherLeft + otherWidth > left &&
+                otherTop + otherHeight > top &&
+                otherLeft < left + getWidth() &&
+                otherTop < top + getHeight();
     }
 
     public boolean contains(Rectangle otherRectangle) {
 
-        boolean contains = false;
+        double otherLeft = otherRectangle.getLeft();
+        double otherTop = otherRectangle.getTop();
+        double left = getLeft();
+        double top = getTop();
 
-        return contains;
+        return (
+                otherLeft >= left &&
+                        otherTop >= top &&
+                        otherLeft < left + getWidth() &&
+                        otherTop < top + getHeight()
+        );
     }
 
     public boolean isAdjacent(Rectangle otherRectangle) {
