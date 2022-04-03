@@ -26,6 +26,10 @@ submission.
 Your submitted source code must compile (if necessary) and the resulting executable must run on Linux.
 Please document any library or framework dependencies
 
+How to Build
+mvn package 
+
+
 Additional Comments / Resources
 
 Watched the following as a refresher: 
