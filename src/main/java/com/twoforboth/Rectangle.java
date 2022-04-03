@@ -1,8 +1,10 @@
 package com.twoforboth;
 
+import java.util.Objects;
+
 public final class Rectangle {
 
-    private final double epsilon = 0.000001d;
+    public final static double epsilon = 0.000001d;
 
     private double top;
     private double left;
@@ -25,6 +27,10 @@ public final class Rectangle {
         return width;
     }
 
+    public double getBottom() { return top + height; }
+
+    public double getRight()  { return left + width; }
+
     public Rectangle(double top, double left, double height, double width) throws RectanglesLibraryException {
 
         if (height < 0.0d) {
@@ -41,18 +47,11 @@ public final class Rectangle {
         this.width = width;
     }
 
-    public boolean isEmpty() {
-        boolean isEmpty;
-
-        isEmpty = (Math.abs(top - 0.0d) < epsilon) &&
-                    (Math.abs(left - 0.0d) < epsilon) &&
-                    (Math.abs(height - 0.0d) < epsilon) &&
-                    (Math.abs(width - 0.0d) < epsilon);
-
-        return isEmpty;
-    }
-
     public boolean intersects(Rectangle otherRectangle) {
+
+        if (otherRectangle == null) {
+            return false;
+        }
 
         double otherLeft = otherRectangle.getLeft();
         double otherTop = otherRectangle.getTop();
@@ -61,13 +60,6 @@ public final class Rectangle {
         double left = getLeft();
         double top = getTop();
 
-        if (isEmpty() && otherRectangle.isEmpty()) {
-            return true;
-        }
-        else if (isEmpty() || otherRectangle.isEmpty()) {
-            return false;
-        }
-
         return otherLeft + otherWidth > left &&
                 otherTop + otherHeight > top &&
                 otherLeft < left + getWidth() &&
@@ -75,6 +67,10 @@ public final class Rectangle {
     }
 
     public boolean contains(Rectangle otherRectangle) {
+
+        if (otherRectangle == null) {
+            return false;
+        }
 
         double otherLeft = otherRectangle.getLeft();
         double otherTop = otherRectangle.getTop();
@@ -85,17 +81,29 @@ public final class Rectangle {
 
         return (
                 otherLeft >= left &&
-                        otherTop >= top &&
-                        (otherLeft + otherWidth) < (left + getWidth()) &&
-                        (otherTop + otherHeight) < (top + getHeight())
+                otherTop >= top &&
+                (otherLeft + otherWidth) < (left + getWidth()) &&
+                (otherTop + otherHeight) < (top + getHeight())
         );
     }
 
     public boolean isAdjacent(Rectangle otherRectangle) {
 
-        boolean isAdjacent = false;
+        if (otherRectangle == null) {
+            return false;
+        }
 
-        return isAdjacent;
+        if (Math.abs(getLeft() - otherRectangle.getRight()) < epsilon ||
+            Math.abs(otherRectangle.getLeft()- getRight()) < epsilon) {
+                return (getTop() < otherRectangle.getBottom() || otherRectangle.getTop() < getBottom());
+        }
+
+        if (Math.abs(getTop() - otherRectangle.getBottom()) < epsilon ||
+            Math.abs(otherRectangle.getTop() - getBottom()) < epsilon) {
+                return !(getRight() < otherRectangle.getLeft() ||
+                        otherRectangle.getRight() < getLeft());
+        }
+        return false;
     }
 
     @Override
@@ -103,4 +111,19 @@ public final class Rectangle {
         return "Top: " + top + " Left: " + left + " Height: " + height + " Width: " + width;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rectangle rectangle = (Rectangle) o;
+        return Double.compare(rectangle.top, top) == 0 &&
+                Double.compare(rectangle.left, left) == 0 &&
+                Double.compare(rectangle.height, height) == 0 &&
+                Double.compare(rectangle.width, width) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(top, left, height, width);
+    }
 }

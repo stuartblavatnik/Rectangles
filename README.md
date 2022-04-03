@@ -37,4 +37,5 @@ Obvious improvements would to have an abstract Shape class or a Shape to allow f
 
 I'd be asking the following questions based on the definitions given for the algorithms:
 
-Can a rectangle be classified as contained and adjacent?
+Can a rectangle be classified as contained and adjacent simultaneously?
+Can rectangles be classified as adjacent if they share a common corner?
