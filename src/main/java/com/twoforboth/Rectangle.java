@@ -78,14 +78,16 @@ public final class Rectangle {
 
         double otherLeft = otherRectangle.getLeft();
         double otherTop = otherRectangle.getTop();
+        double otherWidth = otherRectangle.getWidth();
+        double otherHeight = otherRectangle.getHeight();
         double left = getLeft();
         double top = getTop();
 
         return (
                 otherLeft >= left &&
                         otherTop >= top &&
-                        otherLeft < left + getWidth() &&
-                        otherTop < top + getHeight()
+                        (otherLeft + otherWidth) < (left + getWidth()) &&
+                        (otherTop + otherHeight) < (top + getHeight())
         );
     }
 
@@ -96,5 +98,9 @@ public final class Rectangle {
         return isAdjacent;
     }
 
+    @Override
+    public String toString() {
+        return "Top: " + top + " Left: " + left + " Height: " + height + " Width: " + width;
+    }
 
 }

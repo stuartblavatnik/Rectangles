@@ -34,3 +34,7 @@ https://www.youtube.com/watch?v=AX0e-Yi9f08
 Made a conscious decision to keep this to what was asked to keep this simple and to have additional discussions.  
 
 Obvious improvements would to have an abstract Shape class or a Shape to allow for expansion of the library.
+
+I'd be asking the following questions based on the definitions given for the algorithms:
+
+Can a rectangle be classified as contained and adjacent?

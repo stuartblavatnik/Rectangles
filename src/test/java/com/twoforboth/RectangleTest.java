@@ -76,5 +76,31 @@ public class RectangleTest
         assertFalse(rectangle1.intersects(rectangle2));
     }
 
+    @Test
+    public void containsReturnsTrueForRectangleContainingOtherRectangle() throws Exception {
+
+        Rectangle rectangle1 = new Rectangle(1.0, 1.0, 10.0, 20.0);
+        Rectangle rectangle2 = new Rectangle(2.0, 2.0, 5.0, 10.0);
+
+        assertTrue(rectangle1.contains(rectangle2));
+    }
+
+    @Test
+    public void containsReturnsFalseForRectangleNotContainingOtherRectangle() throws Exception {
+
+        Rectangle rectangle1 = new Rectangle(1.0, 1.0, 10.0, 20.0);
+        Rectangle rectangle2 = new Rectangle(2.0, 2.0, 5.0, 10.0);
+
+        assertFalse(rectangle2.contains(rectangle1));
+    }
+
+    @Test
+    public void containsReturnsFalseForIntersectingRectangles() throws Exception {
+
+        Rectangle rectangle1 = new Rectangle(1.0, 1.0, 10.0, 20.0);
+        Rectangle rectangle2 = new Rectangle(8.0, 8.0, 10.0, 20.0);
+
+        assertFalse(rectangle1.contains(rectangle2));
+    }
 
 }
