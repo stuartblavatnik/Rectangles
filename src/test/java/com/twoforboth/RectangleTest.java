@@ -1,7 +1,6 @@
 package com.twoforboth;
 
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.*;
 
@@ -14,14 +13,14 @@ public class RectangleTest
     public void getRightShouldReturnSummationOfLeftAndWidth() throws Exception {
         Rectangle rectangle = new Rectangle(1.0, 1.0, 10.0, 20.0);
 
-        assertEquals(21.0, rectangle.getRight(), Rectangle.epsilon);
+        assertEquals(21.0, rectangle.getRight(), Rectangle.EPSILON);
     }
 
     @Test
     public void getBottomShouldReturnSummationOfTopAndHeight() throws Exception {
         Rectangle rectangle = new Rectangle(1.0, 1.0, 10.0, 20.0);
 
-        assertEquals(11.0, rectangle.getBottom(), Rectangle.epsilon);
+        assertEquals(11.0, rectangle.getBottom(), Rectangle.EPSILON);
     }
 
     @Test

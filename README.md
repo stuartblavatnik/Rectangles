@@ -43,3 +43,6 @@ I'd be asking the following questions based on the definitions given for the alg
 
 Can a rectangle be classified as contained and adjacent simultaneously?
 Can rectangles be classified as adjacent if they share a common corner?
+
+Part of the project involved me digging out an old laptop and setting up docker so I could run ubuntu.  I manually
+installed git and maven to prove this project's test cases passed and the jar can be built.

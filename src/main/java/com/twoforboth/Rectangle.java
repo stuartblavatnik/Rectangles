@@ -7,7 +7,7 @@ public final class Rectangle {
     /**
      * Used to check for near equality for double values.
      */
-    public final static double epsilon = 0.000001d;
+    public static final double EPSILON = 0.000001d;
 
     private double top;
     private double left;
@@ -54,7 +54,7 @@ public final class Rectangle {
      * Determines if current Rectangle intersects another Rectangle.
      * By definition intersection equates to each @see Rectangle sharing one
      * or more points.
-     * @param otherRectangle
+     * @param otherRectangle Other rectangle being tested for intersection.
      * @return true if the 2 rectangles intersect else false
      */
     public boolean intersects(Rectangle otherRectangle) {
@@ -67,8 +67,6 @@ public final class Rectangle {
         double otherTop = otherRectangle.getTop();
         double otherWidth = otherRectangle.getWidth();
         double otherHeight = otherRectangle.getHeight();
-        double left = getLeft();
-        double top = getTop();
 
         return otherLeft + otherWidth > left &&
                 otherTop + otherHeight > top &&
@@ -80,7 +78,7 @@ public final class Rectangle {
      * Determines if one Rectangle contains another Rectangle.
      * By definition containment is true if the all of the passed Rectangle's point are within the calling Rectangle's
      * points.
-     * @param otherRectangle
+     * @param otherRectangle Rectangle being tested if contained by this rectangle.
      * @return true if the calling Rectangle contains the passed in Rectangle else false
      */
     public boolean contains(Rectangle otherRectangle) {
@@ -93,8 +91,6 @@ public final class Rectangle {
         double otherTop = otherRectangle.getTop();
         double otherWidth = otherRectangle.getWidth();
         double otherHeight = otherRectangle.getHeight();
-        double left = getLeft();
-        double top = getTop();
 
         return (
                 otherLeft >= left &&
@@ -106,7 +102,7 @@ public final class Rectangle {
 
     /**
      * Determines if two rectangles share one or more sides.
-     * @param otherRectangle
+     * @param otherRectangle Other rectangle being tested for adjacency
      * @return True if the rectangles are adjacent else false
      */
     public boolean isAdjacent(Rectangle otherRectangle) {
@@ -115,13 +111,13 @@ public final class Rectangle {
             return false;
         }
 
-        if (Math.abs(getLeft() - otherRectangle.getRight()) < epsilon ||
-            Math.abs(otherRectangle.getLeft()- getRight()) < epsilon) {
+        if (Math.abs(getLeft() - otherRectangle.getRight()) < EPSILON ||
+            Math.abs(otherRectangle.getLeft()- getRight()) < EPSILON) {
                 return (getTop() < otherRectangle.getBottom() || otherRectangle.getTop() < getBottom());
         }
 
-        if (Math.abs(getTop() - otherRectangle.getBottom()) < epsilon ||
-            Math.abs(otherRectangle.getTop() - getBottom()) < epsilon) {
+        if (Math.abs(getTop() - otherRectangle.getBottom()) < EPSILON ||
+            Math.abs(otherRectangle.getTop() - getBottom()) < EPSILON) {
                 return !(getRight() < otherRectangle.getLeft() ||
                         otherRectangle.getRight() < getLeft());
         }
