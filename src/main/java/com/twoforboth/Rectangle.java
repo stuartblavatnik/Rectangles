@@ -4,6 +4,9 @@ import java.util.Objects;
 
 public final class Rectangle {
 
+    /**
+     * Used to check for near equality for double values.
+     */
     public final static double epsilon = 0.000001d;
 
     private double top;
@@ -47,6 +50,13 @@ public final class Rectangle {
         this.width = width;
     }
 
+    /**
+     * Determines if current Rectangle intersects another Rectangle.
+     * By definition intersection equates to each @see Rectangle sharing one
+     * or more points.
+     * @param otherRectangle
+     * @return true if the 2 rectangles intersect else false
+     */
     public boolean intersects(Rectangle otherRectangle) {
 
         if (otherRectangle == null) {
@@ -66,6 +76,13 @@ public final class Rectangle {
                 otherTop < top + getHeight();
     }
 
+    /**
+     * Determines if one Rectangle contains another Rectangle.
+     * By definition containment is true if the all of the passed Rectangle's point are within the calling Rectangle's
+     * points.
+     * @param otherRectangle
+     * @return true if the calling Rectangle contains the passed in Rectangle else false
+     */
     public boolean contains(Rectangle otherRectangle) {
 
         if (otherRectangle == null) {
@@ -87,6 +104,11 @@ public final class Rectangle {
         );
     }
 
+    /**
+     * Determines if two rectangles share one or more sides.
+     * @param otherRectangle
+     * @return True if the rectangles are adjacent else false
+     */
     public boolean isAdjacent(Rectangle otherRectangle) {
 
         if (otherRectangle == null) {
