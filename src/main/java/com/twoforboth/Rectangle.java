@@ -1,5 +1,7 @@
 package com.twoforboth;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public final class Rectangle {
@@ -13,6 +15,7 @@ public final class Rectangle {
     private double left;
     private double height;
     private double width;
+    private ArrayList<Point> edgePoints = new ArrayList<>();
 
     public double getTop() {
         return top;
@@ -48,6 +51,8 @@ public final class Rectangle {
         this.left = left;
         this.height = height;
         this.width = width;
+
+        //fill points
     }
 
     /**
@@ -73,6 +78,41 @@ public final class Rectangle {
                 otherLeft < left + getWidth() &&
                 otherTop < top + getHeight();
     }
+
+    public ArrayList<Point> intersects(Rectangle otherRectangle) {
+
+        ArrayList<Point> points = new ArrayList<>();
+
+        if (otherRectangle == null) {
+            return points;
+        }
+
+        double otherLeft = otherRectangle.getLeft();
+        double otherTop = otherRectangle.getTop();
+        double otherWidth = otherRectangle.getWidth();
+        double otherHeight = otherRectangle.getHeight();
+
+        if (otherLeft + otherWidth > left &&
+                otherTop + otherHeight > top &&
+                otherLeft < left + getWidth() &&
+                otherTop < top + getHeight()) {
+/*
+            foreach (Point point : edgePoints){
+                if (otherRectangle.containsPoint(point)) {
+                    points.add(point);
+                }
+            }
+
+  */
+        }
+
+        return points;
+    }
+
+    private boolean containsPoint(Point point) {
+        return edgePoints.contains(point);
+    }
+
 
     /**
      * Determines if one Rectangle contains another Rectangle.
@@ -108,6 +148,10 @@ public final class Rectangle {
     public boolean isAdjacent(Rectangle otherRectangle) {
 
         if (otherRectangle == null) {
+            return false;
+        }
+
+        if (intersects(otherRectangle)) {
             return false;
         }
 
